@@ -1,4 +1,4 @@
-FROM python:3.10.10
+FROM python:3.12-slim
 
 WORKDIR /app
 
@@ -14,6 +14,4 @@ EXPOSE 5000
 
 ENV PYTHONUNBUFFERED=1
 
-# CMD ["python", "-u", "main.py"]
-
-CMD ["uvicorn", "--host", "192.168.1.2", "--port", "5000", "wsgi:app"]
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--workers", "4", "wsgi:app"]
